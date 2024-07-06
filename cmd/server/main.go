@@ -1,5 +1,7 @@
 package main
 
+import "github.com/mxnyawi/doesItSponsor/cmd/api"
+
 func main() {
-	StartServer()
+	api.StartServer()
 }
