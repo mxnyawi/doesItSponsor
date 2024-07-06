@@ -1,0 +1,126 @@
+/* App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App-header {
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+.container {
+  width: 400px;
+  /* Set a fixed width for the container */
+}
+
+.search-bar,
+.results-box {
+  background-color: white;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+  width: 100%;
+  /* Adjusted to full width within the container */
+  box-sizing: border-box;
+  /* Include padding in width calculation */
+}
+
+.results-box {
+  width: 100%;
+  /* Adjusted to full width within the container */
+  max-height: 500px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  /* Include padding in width calculation */
+}
+
+.search-bar label,
+.search-bar input,
+.search-bar button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* Include padding in width calculation */
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Table styles */
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  /* Adjusted margin */
+}
+
+.results-table th,
+.results-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.results-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.results-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsive design */
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+    /* Adjusted container width for smaller screens */
+  }
+
+  .search-bar,
+  .results-box {
+    width: 100%;
+    /* Adjusted to full width within the container */
+    max-width: 100%;
+    /* Ensures they do not overflow */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
+  }
+
+  .results-table {
+    font-size: 12px;
+  }
+}
