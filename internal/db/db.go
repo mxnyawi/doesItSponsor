@@ -25,14 +25,30 @@ func NewDatabase() (*Database, error) {
 		return nil, err
 	}
 
-	// Connect to the Couchbase cluster
-	cluster, err := gocb.Connect(os.Getenv("CAPELLA_CONNECTION_STRING"), gocb.ClusterOptions{
-		Username: os.Getenv("CAPELLA_USERNAME"),
-		Password: os.Getenv("CAPELLA_PASSWORD"),
-	})
+	// Update this to your cluster details
+	connectionString := os.Getenv("CAPELLA_CONNECTION_STRING")
+	username := os.Getenv("CAPELLA_USERNAME")
+	password := os.Getenv("CAPELLA_PASSWORD")
+
+	options := gocb.ClusterOptions{
+		Authenticator: gocb.PasswordAuthenticator{
+			Username: username,
+			Password: password,
+		},
+	}
+
+	// Sets a pre-configured profile called "wan-development" to help avoid latency issues
+	// when accessing Capella from a different Wide Area Network
+	// or Availability Zone (e.g. your laptop).
+	if err := options.ApplyProfile(gocb.
+		ClusterConfigProfileWanDevelopment); err != nil {
+		log.Fatal(err)
+	}
+
+	// Initialize the Connection
+	cluster, err := gocb.Connect(connectionString, options)
 	if err != nil {
-		log.Fatalf("Failed to connect to Couchbase: %v", err)
-		return nil, err
+		log.Fatal(err)
 	}
 
 	// Open the default bucket
