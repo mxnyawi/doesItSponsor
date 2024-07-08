@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+	"regexp"
 
 	"github.com/gorilla/mux"
 	"github.com/mxnyawi/doesItSponsor/internal/db"
@@ -19,6 +20,11 @@ func (h *Handler) GetOrganisation(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	// Build query
 	orgName := vars["organisation_name"]
+
+	if !h.isValidInput(orgName) {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
 
 	query := db.BuildQuery(orgName, "organisation_name")
 
@@ -42,6 +48,11 @@ func (h *Handler) GetRoute(w http.ResponseWriter, r *http.Request) {
 	// Build query
 	route := vars["route"]
 
+	if !h.isValidInput(route) {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
+
 	query := db.BuildQuery(route, "route")
 
 	orgs, err := h.DB.GetDocument(query)
@@ -64,6 +75,12 @@ func (h *Handler) GetType(w http.ResponseWriter, r *http.Request) {
 	// Build query
 
 	typeRating := vars["type"]
+
+	if !h.isValidInput(typeRating) {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
+
 	query := db.BuildQuery(typeRating, "type")
 
 	orgs, err := h.DB.GetDocument(query)
@@ -85,6 +102,11 @@ func (h *Handler) GetCity(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	// Build query
 	city := vars["city"]
+
+	if !h.isValidInput(city) {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
 
 	query := db.BuildQuery(city, "city")
 
@@ -108,6 +130,11 @@ func (h *Handler) GetCounty(w http.ResponseWriter, r *http.Request) {
 	// Build query
 	county := vars["county"]
 
+	if !h.isValidInput(county) {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
+
 	query := db.BuildQuery(county, "county")
 
 	orgs, err := h.DB.GetDocument(query)
@@ -121,4 +148,10 @@ func (h *Handler) GetCounty(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(orgs); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+}
+
+func (h *Handler) isValidInput(input string) bool {
+	validStrings := `^[a-zA-Z0-9\s\.,'-]+$`
+	matched, _ := regexp.MatchString(validStrings, input)
+	return matched
 }
