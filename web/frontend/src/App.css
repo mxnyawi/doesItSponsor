@@ -1,90 +1,110 @@
-/* App.css */
-
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Open sans', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  /* Adjust max-width as needed */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-header {
   text-align: center;
-}
-
-h1 {
-  color: #333;
-}
-
-.container {
-  width: 400px;
-  /* Set a fixed width for the container */
-}
-
-.search-bar,
-.results-box {
-  background-color: white;
   padding: 20px;
+}
+
+.App-title {
+  font-family: 'Verdana', sans-serif;
+  color: #333;
+  margin: 0;
+  font-size: 3em;
+}
+
+.App-description {
+  font-family: 'Open Sans', sans-serif;
+  color: #666;
   margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.2em;
 }
 
 .search-bar {
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  /* Adjusted to full width within the container */
   box-sizing: border-box;
-  /* Include padding in width calculation */
-}
-
-.results-box {
-  width: 100%;
-  /* Adjusted to full width within the container */
-  max-height: 500px;
-  overflow-y: auto;
-  box-sizing: border-box;
-  /* Include padding in width calculation */
-}
-
-.search-bar label,
-.search-bar input,
-.search-bar button {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .search-bar input {
-  padding: 10px;
+  flex: 1;
+  /* Take up remaining space */
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
-  /* Include padding in width calculation */
+  font-size: 1em;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar input:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .search-bar button {
-  padding: 10px;
+  padding: 15px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .search-bar button:hover {
   background-color: #0056b3;
 }
 
-/* Table styles */
+.results-box {
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ffffff;
+  /* Add border to the table */
+}
 
 .results-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  /* Adjusted margin */
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  /* Round the corners of the table */
+  overflow: hidden;
+  /* Ensure the rounding is applied properly */
 }
 
 .results-table th,
@@ -96,31 +116,90 @@ h1 {
 .results-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+  position: sticky;
+  /* Make header row sticky */
+  top: 0;
+  /* Stick to the top */
+  z-index: 1;
+  /* Ensure it is above other rows */
 }
 
 .results-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Responsive design */
+.results-table th:first-child {
+  border-top-left-radius: 10px;
+}
 
-@media screen and (max-width: 600px) {
-  .container {
-    width: 100%;
-    /* Adjusted container width for smaller screens */
-  }
+.results-table th:last-child {
+  border-top-right-radius: 10px;
+}
 
-  .search-bar,
-  .results-box {
-    width: 100%;
-    /* Adjusted to full width within the container */
-    max-width: 100%;
-    /* Ensures they do not overflow */
-    box-sizing: border-box;
-    /* Include padding in width calculation */
-  }
+.results-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
 
-  .results-table {
-    font-size: 12px;
-  }
+.results-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.buyButtonContainer {
+  position: fixed;
+  bottom: 20px;
+  /* Distance from bottom of viewport */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  /* Adjust z-index as needed */
+  text-align: center;
+  width: 100%;
+  /* Ensure full width */
+  padding: 20px;
+  /* Add padding for better visibility */
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Semi-transparent background */
+}
+
+.buyButton {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  /* White background */
+  color: #666;
+  /* Dark gray text */
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  /* Use the same font as your website */
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buyButton:hover,
+.buyButton:active,
+.buyButton:focus {
+  box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5);
+  /* Light box-shadow on hover */
+  opacity: 0.85;
+  background-color: #f2f2f2;
+  /* Darker shade of white on hover */
+}
+
+.coffeeImage {
+  height: 24px;
+  /* Adjust the height as needed */
+  margin-right: 10px;
+  /* Adjust spacing between image and text */
+  box-shadow: none;
+  border: none;
+  vertical-align: middle;
+}
+
+.coffeeButtonText {
+  font-size: 1rem;
+  /* Adjust font size */
+  vertical-align: middle;
 }
